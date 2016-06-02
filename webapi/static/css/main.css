@@ -1,0 +1,26 @@
+.otext {
+  color: #2E4053;
+}
+.clear {
+  clear: both;
+}
+.ok {
+  color: green;
+}
+.notok {
+  color: red;
+}
+#mapcontainer {
+  float: left;
+  position: relative; 
+  width: 800px; 
+  max-height: 600px; 
+}
+#tablecontainer {
+  float: left; 
+  margin: 0 auto; 
+  padding: 150px 50px 50px 50px;
+}
+#tablecontainer table.table {
+  width: 300px;
+}
