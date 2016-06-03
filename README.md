@@ -11,7 +11,7 @@ Alexander Mendoza, Jayadev Vallath and Maria Mendoza
    + Logical Decoding
 3. Kafka Producer (using Logical Decoding SQL Interface, python)
 4. Analytics REST API (using Kafka Consumer to pickup messages on demand, python flask)
-5. Analytics Dashboard (D3js)
+5. Analytics Dashboard (D3js, datamaps)
 
 #### C. Setup
 
@@ -66,8 +66,6 @@ $ sudo /etc/init.d/postgresql restart
 
 **Install Kafka**
 
-*reference:* [https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-ubuntu-14-04](https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-ubuntu-14-04)
-
 install dependencies `jre` and `zookeeper`
 
 ```
@@ -99,6 +97,7 @@ add the following lines to `~/kafka/config/server.properties`
 
 ```
 delete.topic.enable = true
+auto.create.topics.enable=true
 ```
 
 start the Kafka Server
@@ -115,7 +114,7 @@ $ sudo apt-get install python-psycopg2
 $ sudo service postgresql start
 ```
 
-**Install Flask (python web framework)**
+**Install and prepare Python virtualenv**
 
 install virtualenv
 
@@ -138,27 +137,80 @@ activate virtualenv
 $ . venv/bin/activate
 ```
 
+**Install required Python packages for data pipeline**
+
 install flask
 
 ```
-$ pip install Flask
+(venv)$ pip install Flask
 ```
 
 install twitter bootstrap for flask
 
 ```
-$ pip install flask-bootstrap
+(venv)$ pip install flask-bootstrap
 ```
 
-install psycopg2 inside virtualenv
+install psycopg2
 
 ```
-$ pip install psycopg2 
+(venv)$ pip install psycopg2 
+```
+
+install python kafka client
+
+```
+(venv)$ pip install kafka-python
 ```
 
 #### D. Running the Data Pipeline
+
+**Enable Logical Replication in Postgres**
+
+```
+$ sudo su - salesbi
+$ psql
+salesbi=# select pg_create_logical_replication_slot('transaction_slot','test_decoding');
+```
+
+**Drop Replication Slot in Postgres**
+
+```
+$ sudo su - salesbi
+$ psql
+salesbi=# SELECT pg_drop_replication_slot('transaction_slot');
+```
 
 
 #### E. Dashboard
 
 
+**References:**
+
+Installing Apache Kafka
+
+[https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-ubuntu-14-04](https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-ubuntu-14-04)
+
+Python client for Apache Kafka
+
+[https://github.com/dpkp/kafka-python](https://github.com/dpkp/kafka-python)
+
+Installing PostgreSQL
+
+[https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04)
+
+Logical Decoding in PostgreSQL 9.4
+
+[https://www.postgresql.org/docs/9.4/static/logicaldecoding-example.html](https://www.postgresql.org/docs/9.4/static/logicaldecoding-example.html)
+
+Install Psycopg - Python adapter for PostgreSQL
+
+[http://initd.org/psycopg/docs/install.html#installation](http://initd.org/psycopg/docs/install.html#installation)
+
+Python Flask (web microframework) installation
+
+[http://flask.pocoo.org/docs/0.11/installation/](http://flask.pocoo.org/docs/0.11/installation/)
+
+Datamaps: Interactive maps for data visualization
+
+[https://github.com/markmarkoh/datamaps/blob/master/README.md#getting-started](https://github.com/markmarkoh/datamaps/blob/master/README.md#getting-started)

@@ -15,7 +15,6 @@ INSERT INTO sales_rep VALUES ('1-007','Andy Jerkin','NE',500);
 INSERT INTO sales_rep VALUES ('1-008','Carla Pollak','WC',2000);
 INSERT INTO sales_rep VALUES ('1-009','Samson Smith','TX',4000);
 INSERT INTO sales_rep VALUES ('1-010','Lory Ann Curt','SE',3000);
-INSERT INTO sales_rep VALUES ('1-002','Linda Errico','SE'1000);
 
 CREATE TABLE territory (
     territory_id    varchar(5) CONSTRAINT tkey PRIMARY KEY,
@@ -48,7 +47,7 @@ CREATE TABLE transaction
  unit_sold    integer);
 
 INSERT INTO transaction VALUES (current_date,1000,'1-001','N001',25);
-
-https://hub.docker.com/_/postgres/
--- to remove a containter
-docker rm  container name
+INSERT INTO transaction VALUES (current_date,1000,'1-002','A001',15);
+INSERT INTO transaction VALUES (current_date,1000,'1-003','M004',20);
+INSERT INTO transaction VALUES (current_date,1000,'1-004','N005',11);
+INSERT INTO transaction VALUES (current_date,1000,'1-005','C005',30);
