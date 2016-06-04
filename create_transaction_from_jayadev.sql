@@ -25,7 +25,7 @@ vsold = 5;
 				
 				vtime = vtime + 10;
 
-                                SELECT floor(random()*(500-1)+1) * prec.gallons INTO vsold;
+                                SELECT floor(random()*(500-1)+1) INTO vsold;
   
   	    			   INSERT INTO transaction VALUES (current_date,vtime,srec.sales_rep_id,prec.product_id,vsold);
 			END LOOP;

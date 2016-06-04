@@ -23,6 +23,7 @@ Alexander Mendoza, Jayadev Vallath and Maria Mendoza
    - DNS Name: auimbigdata2.eastus.cloudapp.azure.com
    - Static IP: Yes
    - Use SSH Key: Yes
+   - Open TCP Port 80 for HTTP
 
 **Install PostgreSQL 9.4**
 
@@ -165,25 +166,35 @@ install python kafka client
 
 #### D. Running the Data Pipeline
 
-**Enable Logical Replication in Postgres**
+**Run the data generator**
+
+**Run the kafka producer**
 
 ```
-$ sudo su - salesbi
-$ psql
-salesbi=# select pg_create_logical_replication_slot('transaction_slot','test_decoding');
+(venv)$ python salesbi-kafka-postgres-producer.py transaction_slot 5
 ```
 
-**Drop Replication Slot in Postgres**
+where transaction_slot is the postgresql replication slot name and 5 is the sleep time in between pg_logical_slot_get_changes calls
+
+This producer does the following:
+
++ drop the replication slot if it exists
++ create a new replication slot
++ loop continuously until Ctrl-C
++ for each loop iteration, read the logical changes from the replication slot and format the data into json, send the formatted json data to topic with the same name as replication slot, then sleep
++ note: kafka is configured to auto create topics
+
+**Start the webapi server**
 
 ```
-$ sudo su - salesbi
-$ psql
-salesbi=# SELECT pg_drop_replication_slot('transaction_slot');
+(venv)$ python webapi.py runserver &
 ```
 
+**Open the dashboard**
+
+go to [http://auimbigdata2.eastus.cloudapp.azure.com/](http://auimbigdata2.eastus.cloudapp.azure.com/)
 
 #### E. Dashboard
-
 
 **References:**
 
