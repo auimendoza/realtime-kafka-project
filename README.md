@@ -209,12 +209,12 @@ This producer does the following:
 **Start the webapi server**
 
 ```
-(venv)$ python webapi.py runserver &
+(venv)$ python webapi.py
 ```
 
 **Open the dashboard**
 
-go to [http://auimbigdata2.eastus.cloudapp.azure.com/](http://auimbigdata2.eastus.cloudapp.azure.com/)
+go to [http://auimbigdata2.eastus.cloudapp.azure.com:8080/](http://auimbigdata2.eastus.cloudapp.azure.com:8080/)
 
 #### E. Dashboard
 
