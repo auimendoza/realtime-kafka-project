@@ -1,0 +1,50 @@
+-- In Azure create virtual machine for Ubuntu
+-- Note down public IP Address 
+-- In putty connect to SSH 
+-- In $ prompt Install PostgreSQL 9.4
+$ sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+$ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt-get install postgresql-9.4 postgresql-server-dev-9.4 postgresql-contrib-9.4
+$ (copy generator.py here)
+$ sudo passwd postgres  (password  postgres)
+$ sudo service postgresql start
+$ su postgres (password postgres)
+-- Running generator in batch mode
+$ python generator.py 
+
+
+$ createdb salesdb
+$ psql -d  salesdb
+
+--exit from postgres by Ctrl D to install psycopg2
+--
+-- Install psycopg2
+--
+$ sudo service postgresql stop
+$ sudo apt-get install python-psycopg2
+$ sudo service postgresql start
+
+-- Invoke python and execute create_transaction() function created in postgres
+-- This should generated the transaction in postgres databasse
+
+import psycopg2
+try:
+    conn = psycopg2.connect("dbname=salesdb user=postgres password=postgres")
+except:
+    print "I am unable to connect to the database"
+
+cur = conn.cursor()
+
+for i in 1..100 LOOP
+cur.execute("""SELECT create_transaction()""")
+cur.execute("""SELECT count(*) from transaction""")
+rows = cur.fetchall()
+for row in rows:
+    print "no of transactions created ", row[0]
+conn.commit()	
+
+END LOOP;
+
+--------------------

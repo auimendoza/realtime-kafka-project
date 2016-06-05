@@ -21,9 +21,9 @@ CREATE TABLE territory (
     territory_name  varchar(40)    NOT NULL
 );
 
-INSERT INTO territory VALUES ('NE','Norh East');
+INSERT INTO territory VALUES ('NE','North East');
 INSERT INTO territory VALUES ('SE','South East');
-INSERT INTO territory VALUES ('NYC','Newyork Metro');
+INSERT INTO territory VALUES ('NYC','New York Metro');
 INSERT INTO territory VALUES ('GL','Great Lakes');
 INSERT INTO territory VALUES ('WC','West Coast');
 INSERT INTO territory VALUES ('TX','Texas');
@@ -41,7 +41,7 @@ INSERT INTO product VALUES ('N005',.5);
 
 CREATE TABLE transaction
 (order_date   date,
- order_time   integer,
+ order_time   time with time zone,
  sales_rep_id char(5),
  product_id   varchar(5),
  unit_sold    integer);

@@ -143,6 +143,13 @@ install flask
 (venv)$ pip install Flask
 ```
 
+install flask socketio and eventlet
+
+```
+(venv)$ pip install flask-socketio
+(venv)$ pip install eventlet
+```
+
 install twitter bootstrap for flask
 
 ```

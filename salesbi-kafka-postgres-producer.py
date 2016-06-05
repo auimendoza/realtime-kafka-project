@@ -44,13 +44,14 @@ def getlogs():
     if tokens[0] == 'COMMIT':
       tstamp = ' '.join([tokens[3], tokens[4]])
       uspattern = '(?<=\.)\d+(?=\+.)'
-      us = re.search('(?<=\.)\d+(?=\+.)', tstamp).group(0).zfill(6)
+      #us = re.search('(?<=\.)\d+(?=\+.)', tstamp).group(0).zfill(6)
+      us = re.search(uspattern, tstamp).group(0).zfill(6)
       commits[logid] = re.sub('\+\d+$', '', re.sub(uspattern, us, tstamp))
 
     # "table public.transaction: INSERT: order_date[date]:\'2016-06-03\' order_time[integer]:1010 sales_rep_id[character]:\'1-001\' product_id[character varying]:\'N001\' unit_sold[integer]:137"
     elif tokens[0] == 'table':
       logd['logid'] = logid
-      logd['table'] = tokens[1].replace('public.','')
+      logd['table'] = re.sub(':$','',tokens[1].replace('public.',''))
       for t in tokens[3:] :
         logd[t.split(':')[0]] = re.sub('[(^\')(\'$)]','',t.split(':')[1])
 
@@ -95,14 +96,17 @@ if __name__ == '__main__':
     while True:
       c, d = getlogs()
   
+      mcnt = 0
       for di in d:
         if len(di) == 0:
           continue
         logid = di['logid']
         di['timestamp'] = c[logid]
         producer.send(topic, json.dumps(di))
+        mcnt += 1
   
-      print str(len(d)), 'messages sent'
+      print str(len(d)), 'logs processed.'
+      print str(mcnt), 'messages sent'
       time.sleep(float(interval))
 
   except KeyboardInterrupt, ke: 
