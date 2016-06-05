@@ -222,29 +222,29 @@ go to [http://auimbigdata2.eastus.cloudapp.azure.com:8080/](http://auimbigdata2.
 
 Installing Apache Kafka
 
-[https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-ubuntu-14-04](https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-ubuntu-14-04)
++ [https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-ubuntu-14-04](https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-ubuntu-14-04)
 
 Python client for Apache Kafka
 
-[https://github.com/dpkp/kafka-python](https://github.com/dpkp/kafka-python)
++ [https://github.com/dpkp/kafka-python](https://github.com/dpkp/kafka-python)
 
 Installing PostgreSQL
 
-[https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04)
++ [https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04)
 
 Logical Decoding in PostgreSQL 9.4
 
-[https://www.postgresql.org/docs/9.4/static/logicaldecoding-example.html](https://www.postgresql.org/docs/9.4/static/logicaldecoding-example.html)
++ [https://www.postgresql.org/docs/9.4/static/logicaldecoding-example.html](https://www.postgresql.org/docs/9.4/static/logicaldecoding-example.html)
 
 Install Psycopg - Python adapter for PostgreSQL
 
-[http://initd.org/psycopg/docs/install.html#installation](http://initd.org/psycopg/docs/install.html#installation)
++ [http://initd.org/psycopg/docs/install.html#installation](http://initd.org/psycopg/docs/install.html#installation)
 
 Python Flask (web microframework) installation and flask-socketio
 
-[http://flask.pocoo.org/docs/0.11/installation/](http://flask.pocoo.org/docs/0.11/installation/)
-[https://github.com/miguelgrinberg/Flask-SocketIO](https://github.com/miguelgrinberg/Flask-SocketIO)
++ [http://flask.pocoo.org/docs/0.11/installation/](http://flask.pocoo.org/docs/0.11/installation/)
++ [https://github.com/miguelgrinberg/Flask-SocketIO](https://github.com/miguelgrinberg/Flask-SocketIO)
 
 Datamaps: Interactive maps for data visualization
 
-[https://github.com/markmarkoh/datamaps/blob/master/README.md#getting-started](https://github.com/markmarkoh/datamaps/blob/master/README.md#getting-started)
++ [https://github.com/markmarkoh/datamaps/blob/master/README.md#getting-started](https://github.com/markmarkoh/datamaps/blob/master/README.md#getting-started)
