@@ -173,13 +173,7 @@ salesbi=# \i create_salesbi_2.sql
 
 #### E. Running the Data Pipeline
 
-**Run the data generator**
-
-```
-(venv)$ python generator.py
-```
-
-**Run the kafka producer**
+**Start the kafka producer**
 
 ```
 (venv)$ python salesbi-kafka-postgres-producer.py transaction_slot 5
@@ -189,11 +183,21 @@ where transaction_slot is the postgresql replication slot name and 5 is the slee
 
 This producer does the following:
 
-+ drop the replication slot if it exists
-+ create a new replication slot
-+ loop continuously until Ctrl-C
-+ for each loop iteration, read the logical changes from the replication slot and format the data into json, send the formatted json data to topic with the same name as replication slot, then sleep
-+ note: kafka is configured to auto create topics
++ create a new replication slot using given slot name
++ loop continuously until Ctrl-C or Keyboard Interrupt
++ for each loop iteration
+    - read the logical changes from the replication slot 
+    - format the data into json
+    - send the formatted json data to topic with the same name as replication slot
+    - sleep for a specified number of seconds
+    - **note:** kafka is configured to auto create topics
++ drop the replication slot and close database connection
+
+**Run the data generator**
+
+```
+(venv)$ python generator.py
+```
 
 **Start the webapi server**
 
