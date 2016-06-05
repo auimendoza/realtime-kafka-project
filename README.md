@@ -40,6 +40,9 @@ $ sudo apt-get install postgresql-9.4 postgresql-server-dev-9.4 postgresql-contr
 ```
 $ sudo su - postgres
 $ createuser -U postgres -d -e -E -l -P -r -s --replication salesbi
+$ sudo adduser salesbi
+$ sudo su - salesbi
+$ createdb salesbi
 ```
 
 add the below lines to `/etc/postgresql/9.4/main/postgresql.conf`
@@ -59,10 +62,12 @@ host    replication     all  127.0.0.1/32   trust
 host    replication     all  ::1/128        trust
 ```
 
-restart the database
+**Install Psycopg PostgreSQL adapter for Python**
 
 ```
-$ sudo /etc/init.d/postgresql restart
+$ sudo service postgresql stop
+$ sudo apt-get install python-psycopg2
+$ sudo service postgresql start
 ```
 
 **Install Kafka**
@@ -105,14 +110,6 @@ start the Kafka Server
 
 ```
 $ nohup ~/kafka/bin/kafka-server-start.sh ~/kafka/config/server.properties > ~/kafka/kafka.log 2>&1 &
-```
-
-**Install Psycopg PostgreSQL adapter for Python**
-
-```
-$ sudo service postgresql stop
-$ sudo apt-get install python-psycopg2
-$ sudo service postgresql start
 ```
 
 **Install and prepare Python virtualenv**
@@ -164,9 +161,23 @@ install python kafka client
 (venv)$ pip install kafka-python
 ```
 
-#### D. Running the Data Pipeline
+#### D. Prepare the database
+
+```
+$ sudo su - salesbi
+$ psql
+
+salesbi=# \i create_salesbi_1.sql
+salesbi=# \i create_salesbi_2.sql
+```
+
+#### E. Running the Data Pipeline
 
 **Run the data generator**
+
+```
+(venv)$ python generator.py
+```
 
 **Run the kafka producer**
 
