@@ -240,9 +240,10 @@ Install Psycopg - Python adapter for PostgreSQL
 
 [http://initd.org/psycopg/docs/install.html#installation](http://initd.org/psycopg/docs/install.html#installation)
 
-Python Flask (web microframework) installation
+Python Flask (web microframework) installation and flask-socketio
 
 [http://flask.pocoo.org/docs/0.11/installation/](http://flask.pocoo.org/docs/0.11/installation/)
+[https://github.com/miguelgrinberg/Flask-SocketIO](https://github.com/miguelgrinberg/Flask-SocketIO)
 
 Datamaps: Interactive maps for data visualization
 
