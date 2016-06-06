@@ -5,13 +5,19 @@ Alexander Mendoza, Jayadev Vallath and Maria Mendoza
 ![](architecture.png)
 
 #### B. Components
-1. Data Generator (python)
+1. Data Generator
+    + [generator.py](https://gitlab2.bigdata220uw.mooo.com/auim/Team6_Assignment/blob/master/jayadev/generator.py)
 2. PostgreSQL Database 9.4 (Third Party Software)
-   + Replication
-   + Logical Decoding
+    + Replication
+    + Logical Decoding
 3. Kafka Producer (using Logical Decoding SQL Interface, python)
-4. Analytics REST API (using Kafka Consumer to pickup messages on demand, python flask)
-5. Analytics Dashboard (D3js, datamaps)
+    + [salesbi-kafka-postgres-producer.py](https://gitlab2.bigdata220uw.mooo.com/auim/Team6_Assignment/blob/master/salesbi-kafka-postgres-producer.py)
+4. Kafka Consumer
+    + [consumer.py](https://gitlab2.bigdata220uw.mooo.com/auim/Team6_Assignment/blob/master/alex/consumer.py)
+4. Analytics Web App (calls consumer.py SalesConsumer class)
+    + [webapi.py](https://gitlab2.bigdata220uw.mooo.com/auim/Team6_Assignment/blob/master/webapi/webapi.py)
+5. Dashboard (D3js, datamaps)
+    + [http://auimbigdata2.eastus.cloudapp.azure.com:8080/](http://auimbigdata2.eastus.cloudapp.azure.com:8080/)
 
 #### C. Setup
 
@@ -23,7 +29,7 @@ Alexander Mendoza, Jayadev Vallath and Maria Mendoza
    - DNS Name: auimbigdata2.eastus.cloudapp.azure.com
    - Static IP: Yes
    - Use SSH Key: Yes
-   - Open TCP Port 80 for HTTP
+   - Open TCP Port 8080 for HTTP
 
 **Install PostgreSQL 9.4**
 
@@ -137,29 +143,19 @@ $ . venv/bin/activate
 
 **Install required Python packages for data pipeline**
 
-install flask
+install flask, flask socketio, eventlet and bootstrap
 
 ```
 (venv)$ pip install Flask
-```
-
-install flask socketio and eventlet
-
-```
 (venv)$ pip install flask-socketio
 (venv)$ pip install eventlet
-```
-
-install twitter bootstrap for flask
-
-```
 (venv)$ pip install flask-bootstrap
 ```
 
-install psycopg2
+install psycopg2 postgresql adapter for python
 
 ```
-(venv)$ pip install psycopg2 
+(venv)$ pip install psycopg2
 ```
 
 install python kafka client
@@ -174,8 +170,8 @@ install python kafka client
 $ sudo su - salesbi
 $ psql
 
-salesbi=# \i create_salesbi_1.sql
-salesbi=# \i create_salesbi_2.sql
+salesbi=# \i jayadev/table_create_insert_scripts.sql
+salesbi=# \q
 ```
 
 #### E. Running the Data Pipeline
@@ -203,12 +199,13 @@ This producer does the following:
 **Run the data generator**
 
 ```
-(venv)$ python generator.py
+(venv)$ python python jayadev/generator.py
 ```
 
 **Start the webapi server**
 
 ```
+(venv)$ export PYTHONPATH=$PYTHONPATH:/home/salesbi/Team6_Assignment/alex:.
 (venv)$ python webapi.py
 ```
 
@@ -217,6 +214,9 @@ This producer does the following:
 go to [http://auimbigdata2.eastus.cloudapp.azure.com:8080/](http://auimbigdata2.eastus.cloudapp.azure.com:8080/)
 
 #### E. Dashboard
+
+![](dashboard.png)
+
 
 **References:**
 

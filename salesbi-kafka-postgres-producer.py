@@ -105,7 +105,7 @@ if __name__ == '__main__':
         producer.send(topic, json.dumps(di))
         mcnt += 1
   
-      print str(len(d)), 'logs processed.'
+      #print str(len(d)), 'logs processed.'
       print str(mcnt), 'messages sent'
       time.sleep(float(interval))
 
