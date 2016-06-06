@@ -10,6 +10,7 @@ from flask import Flask, render_template, session, request
 from flask_bootstrap import Bootstrap
 from flask_socketio import SocketIO, emit, join_room, leave_room, \
     close_room, rooms, disconnect
+from consumer import SalesConsumer
 
 async_mode = 'eventlet'
 app = Flask(__name__)
@@ -19,9 +20,13 @@ socketio = SocketIO(app, async_mode=async_mode)
 thread = None
 
 def background_thread():
-    consumer = KafkaConsumer('transaction_slot')
-    for msg in consumer:
-      d = msg.value
+    sc = SalesConsumer('transaction_slot')
+    sc.getrefs()
+    for msg in sc.getconsumer():
+      if len(msg.value) == 0:
+        continue
+      sc.getsales(msg)
+      d = sc.sales
       try:
         socketio.emit('update',
                       {'type': 'data', 'data': json.dumps(d)},
