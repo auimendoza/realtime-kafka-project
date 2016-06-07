@@ -143,12 +143,13 @@ $ . venv/bin/activate
 
 **Install required Python packages for data pipeline**
 
-install flask, flask socketio, eventlet and bootstrap
+install flask, socketio, eventlet, moment and bootstrap
 
 ```
 (venv)$ pip install Flask
 (venv)$ pip install flask-socketio
 (venv)$ pip install eventlet
+(venv)$ pip install flask-moment
 (venv)$ pip install flask-bootstrap
 ```
 

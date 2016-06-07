@@ -11,10 +11,12 @@ from flask_bootstrap import Bootstrap
 from flask_socketio import SocketIO, emit, join_room, leave_room, \
     close_room, rooms, disconnect
 from consumer import SalesConsumer
+from flask_moment import Moment
 
 async_mode = 'eventlet'
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
+moment = Moment(app)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode=async_mode)
 thread = None
@@ -29,8 +31,8 @@ def background_thread():
       d = sc.sales
       try:
         socketio.emit('update',
-                      {'type': 'data', 'data': json.dumps(d)},
-                      namespace='')
+                      {'data': json.dumps(d)},
+                      namespace='', broadcast=True)
       except Exception, e:
         print str(e) 
       print 'emitted'
@@ -47,8 +49,8 @@ def index():
 
 @socketio.on('connected', namespace='')
 def connected():
-    emit('update',
-         {'type': 'status', 'status':'Connected.'})
+    emit('status',
+         {'status':'Connected.'})
 
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=8080)

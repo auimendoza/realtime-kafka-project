@@ -1,15 +1,39 @@
      $(document).ready(function(){
        var gallons = {}; 
-       namespace = '';
-
+           namespace = '';
+       
        var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
 
        socket.on('update', function(msg) {    
-         if (msg.type == 'status') {
-           $('#updatestatus').text(msg.status);
-         } else if (msg.type == 'data') {
-           $('#updatestatus').text(msg.data);
-         }
+         var m = JSON.parse(msg.data);
+         var maxmoment = moment().subtract(1, 'day');
+         var newmoment = maxmoment;
+
+         $.each(m, function(i, item){
+           // max latency
+           newmoment = moment(item.Tstamp.replace(/\.\d{1,6}/,'+00:00'), "YYYY-MM-DD HH:mm:ssZ");
+           maxmoment = moment.max(maxmoment, newmoment);
+
+           //update sales
+           $('#' + i + ' .tname').text(item.Name);
+           $('#' + i + ' .tact').text(item.Act);
+           $('#' + i + ' .tplan').text(item.Plan);
+
+           if (item.Stat == -1) {
+             $('#' + i + ' .tstat').removeClass().addClass('tstat notok glyphicon glyphicon-arrow-down');
+           } else if (item.Stat == 0) {
+             $('#' + i + ' .tstat').removeClass().addClass('tstat soso glyphicon glyphicon-minus');
+           } else if (item.Stat == 1) {
+             $('#' + i + ' .tstat').removeClass().addClass('tstat ok glyphicon glyphicon-arrow-up');
+           }
+         });
+         // update latency
+         $('#updatestatus').text('Latency: ' + moment().diff(maxmoment,'seconds') + 's');
+
+       });
+
+       socket.on('status', function(msg) {    
+         $('#updatestatus').text(msg.status);
        });
 
        socket.on('connect', function(){    

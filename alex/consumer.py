@@ -83,36 +83,42 @@ class SalesConsumer():
     self.sales['NE']['Act']=0.0
     self.sales['NE']['Ave']=0.0
     self.sales['NE']['Stat']=0
+    self.sales['NE']['Tstamp']=''
     
     self.sales['SE']['Name'] = "South East"
     self.sales['SE']['Plan'] = SE_plan
     self.sales['SE']['Act']=0.0
     self.sales['SE']['Ave']=0.0
     self.sales['SE']['Stat']=0
+    self.sales['SE']['Tstamp']=''
     
     self.sales['NYC']['Name'] = "New York Metro"
     self.sales['NYC']['Plan'] = NYC_plan
     self.sales['NYC']['Act']=0.0
     self.sales['NYC']['Ave']=0.0
     self.sales['NYC']['Stat']=0
+    self.sales['NYC']['Tstamp']=''
     
     self.sales['GL']['Name'] = "Great Lakes"
     self.sales['GL']['Plan'] = GL_plan
     self.sales['GL']['Act']=0.0
     self.sales['GL']['Ave']=0.0
     self.sales['GL']['Stat']=0
+    self.sales['GL']['Tstamp']=''
     
     self.sales['WC']['Name'] = "West Coast"
     self.sales['WC']['Plan'] = WC_plan
     self.sales['WC']['Act']=0.0
     self.sales['WC']['Ave']=0.0
     self.sales['WC']['Stat']=0
+    self.sales['WC']['Tstamp']=''
     
     self.sales['TX']['Name'] = "Texas"
     self.sales['TX']['Plan'] = TX_plan
     self.sales['TX']['Act']=0.0
     self.sales['TX']['Ave']=0.0
     self.sales['TX']['Stat']=0
+    self.sales['TX']['Tstamp']=''
     
   def getconsumer(self):
     #read message from kafka
@@ -136,7 +142,7 @@ class SalesConsumer():
          gallon_sales = float(units)*gallons
          
     if terr == 'WC':
-       self.sales['WC']['tstamp'] = tstamp
+       self.sales['WC']['Tstamp'] = tstamp
        sales_ave = (gallon_sales -self.sales['WC']['Act']) / 2
        if sales_ave <self.sales['WC']['Ave']:
           self.sales['WC']['Stat'] = -1
@@ -147,7 +153,7 @@ class SalesConsumer():
        self.sales['WC']['Ave'] = str(sales_ave)
        self.sales['WC']['Act'] = self.sales['WC']['Act'] + gallon_sales
     elif terr=='NE':
-       self.sales['NE']['tstamp'] = tstamp
+       self.sales['NE']['Tstamp'] = tstamp
        sales_ave = (gallon_sales -self.sales['NE']['Act'])/2
        if sales_ave <self.sales['NE']['Ave']:
           self.sales['NE']['Stat']= -1
@@ -191,7 +197,7 @@ class SalesConsumer():
        self.sales['GL']['Ave'] = str(sales_ave)
        self.sales['GL']['Act'] = self.sales['GL']['Act'] + gallon_sales
     elif terr == 'TX':    
-       self.sales['TX']['tstamp'] = tstamp
+       self.sales['TX']['Tstamp'] = tstamp
        sales_ave = (gallon_sales -self.sales['TX']['Act']) / 2
        if sales_ave <self.sales['TX']['Ave']:
           self.sales['TX']['Stat'] = -1
