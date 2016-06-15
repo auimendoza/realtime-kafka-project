@@ -214,8 +214,6 @@ This producer does the following:
 
 Go to [Youtube](https://www.youtube.com/watch?v=Wblk_z_AffQ)
 
-<iframe width="420" height="315" src="https://www.youtube.com/embed/Wblk_z_AffQ" frameborder="0" allowfullscreen></iframe>
-
 #### E. Dashboard
 
 ![](dashboard.png)
