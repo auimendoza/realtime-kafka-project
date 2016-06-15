@@ -10,7 +10,7 @@ from flask import Flask, render_template, session, request
 from flask_bootstrap import Bootstrap
 from flask_socketio import SocketIO, emit, join_room, leave_room, \
     close_room, rooms, disconnect
-from consumer import SalesConsumer
+from consumer2 import SalesConsumer
 from flask_moment import Moment
 
 async_mode = 'eventlet'
