@@ -210,9 +210,9 @@ This producer does the following:
 (venv)$ python webapi.py
 ```
 
-**Open the dashboard**
+**See it in action**
 
-go to [http://auimbigdata2.eastus.cloudapp.azure.com:8080/](http://auimbigdata2.eastus.cloudapp.azure.com:8080/)
+Go to [Youtube](https://www.youtube.com/watch?v=Wblk_z_AffQ)
 
 #### E. Dashboard
 
