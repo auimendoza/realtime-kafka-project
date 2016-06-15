@@ -6,15 +6,15 @@ CREATE TABLE sales_rep (
 );
 
 INSERT INTO sales_rep VALUES ('1-001','John Smith','NE',500);
-INSERT INTO sales_rep VALUES ('1-002','Linda Errico','SE',1000);
-INSERT INTO sales_rep VALUES ('1-003','Ed Smith','NYC',3000);
-INSERT INTO sales_rep VALUES ('1-004','Dennis Brunzell','GL',2000);
-INSERT INTO sales_rep VALUES ('1-005','Carl Kowaski','WC',1000);
-INSERT INTO sales_rep VALUES ('1-006','Jung Lim','NYC',1000);
-INSERT INTO sales_rep VALUES ('1-007','Andy Jerkin','NE',500);
-INSERT INTO sales_rep VALUES ('1-008','Carla Pollak','WC',2000);
-INSERT INTO sales_rep VALUES ('1-009','Samson Smith','TX',4000);
-INSERT INTO sales_rep VALUES ('1-010','Lory Ann Curt','SE',3000);
+INSERT INTO sales_rep VALUES ('1-002','Erlich Bachmann','SE',1000);
+INSERT INTO sales_rep VALUES ('1-003','Jared Dunn','NYC',3000);
+INSERT INTO sales_rep VALUES ('1-004','Richard Hendricks','GL',2000);
+INSERT INTO sales_rep VALUES ('1-005','Charles Kowaski','WC',1000);
+INSERT INTO sales_rep VALUES ('1-006','Jian Yang','NYC',1000);
+INSERT INTO sales_rep VALUES ('1-007','Laurie Bream','NE',500);
+INSERT INTO sales_rep VALUES ('1-008','Peter Gregory','WC',2000);
+INSERT INTO sales_rep VALUES ('1-009','Gavin Belson','TX',4000);
+INSERT INTO sales_rep VALUES ('1-010','Nelson Bighetti','SE',3000);
 
 CREATE TABLE territory (
     territory_id    varchar(5) CONSTRAINT tkey PRIMARY KEY,
@@ -51,44 +51,3 @@ INSERT INTO transaction VALUES (current_date,1000,'1-002','A001',15);
 INSERT INTO transaction VALUES (current_date,1000,'1-003','M004',20);
 INSERT INTO transaction VALUES (current_date,1000,'1-004','N005',11);
 INSERT INTO transaction VALUES (current_date,1000,'1-005','C005',30);
-
--- from postgres_05june.txt
-CREATE OR REPLACE FUNCTION create_transaction()
-RETURNS BOOLEAN AS $$
-DECLARE passed BOOLEAN;
-srec     record;
-prec     record;
-vtime    time;
-vsold    integer;
-
-
-BEGIN
-
-
-vsold = 5;
-    FOR i in 1 .. 2
-      LOOP
-          FOR prec in 
-		SELECT * FROM product
-		
-		LOOP
-		    FOR srec in
-        		SELECT * 
-        		FROM sales_rep  
-    			LOOP 
-				
-				 select current_time into vtime;
-
-                                SELECT floor(random()*(500-1)+1) INTO vsold;
-  
-  	    			   INSERT INTO transaction VALUES (current_date,vtime,srec.sales_rep_id,prec.product_id,vsold);
-					
-				  PERFORM pg_sleep(1);
-			END LOOP;
- 		   
-		END LOOP;
-                  PERFORM pg_sleep(1);
-	  END LOOP;
-        RETURN passed;
-END;
-$$  LANGUAGE plpgsql;
