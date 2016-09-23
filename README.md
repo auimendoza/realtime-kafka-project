@@ -6,16 +6,16 @@ Alexander Mendoza, Jayadev Vallath and Maria Mendoza
 
 #### B. Components
 1. Data Generator
-    + [generator.py](https://gitlab2.bigdata220uw.mooo.com/auim/Team6_Assignment/blob/master/jayadev/generator.py)
+    + [generator.py](jayadev/generator.py)
 2. PostgreSQL Database 9.4 (Third Party Software)
     + Replication
     + Logical Decoding
 3. Kafka Producer (using Logical Decoding SQL Interface, python)
-    + [salesbi-kafka-postgres-producer.py](https://gitlab2.bigdata220uw.mooo.com/auim/Team6_Assignment/blob/master/salesbi-kafka-postgres-producer.py)
+    + [salesbi-kafka-postgres-producer.py](salesbi-kafka-postgres-producer.py)
 4. Kafka Consumer
-    + [consumer.py](https://gitlab2.bigdata220uw.mooo.com/auim/Team6_Assignment/blob/master/alex/consumer.py)
+    + [consumer.py](consumer2.py)
 4. Analytics Web App (calls consumer.py SalesConsumer class)
-    + [webapi.py](https://gitlab2.bigdata220uw.mooo.com/auim/Team6_Assignment/blob/master/webapi/webapi.py)
+    + [webapi.py](webapi/webapi.py)
 5. Dashboard (D3js, datamaps)
     + [http://auimbigdata2.eastus.cloudapp.azure.com:8080/](http://auimbigdata2.eastus.cloudapp.azure.com:8080/)
 
