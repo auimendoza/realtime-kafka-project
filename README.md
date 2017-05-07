@@ -1,19 +1,18 @@
 ### Sales BI Real-time Dashboard
-Alexander Mendoza, Jayadev Vallath and Maria Mendoza
 
 #### A. Low Latency Data Pipeline Architecture
 ![](architecture.png)
 
 #### B. Components
 1. Data Generator
-    + [generator.py](jayadev/generator.py)
+    + [generator.py](generator/generator.py)
 2. PostgreSQL Database 9.4 (Third Party Software)
     + Replication
     + Logical Decoding
 3. Kafka Producer (using Logical Decoding SQL Interface, python)
     + [salesbi-kafka-postgres-producer.py](salesbi-kafka-postgres-producer.py)
 4. Kafka Consumer
-    + [consumer.py](consumer2.py)
+    + [consumer.py](consumer/consumer2.py)
 4. Analytics Web App (calls consumer.py SalesConsumer class)
     + [webapi.py](webapi/webapi.py)
 5. Dashboard (D3js, datamaps)
@@ -171,7 +170,7 @@ install python kafka client
 $ sudo su - salesbi
 $ psql
 
-salesbi=# \i jayadev/table_create_insert_scripts.sql
+salesbi=# \i generator/create_insert_scripts.sql
 salesbi=# \q
 ```
 
@@ -200,13 +199,13 @@ This producer does the following:
 **Run the data generator**
 
 ```
-(venv)$ python python jayadev/generator.py
+(venv)$ python generator/generator.py
 ```
 
 **Start the webapi server**
 
 ```
-(venv)$ export PYTHONPATH=$PYTHONPATH:/home/salesbi/Team6_Assignment/alex:.
+(venv)$ export PYTHONPATH=$PYTHONPATH:/home/salesbi:.
 (venv)$ python webapi.py
 ```
 
